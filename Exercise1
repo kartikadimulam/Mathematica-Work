@@ -1,0 +1,26 @@
+Manipulate[
+Plot[{a*Cos[x],Cos[x]+b,Cos[c*x],a*Cos[c*x]+d},{x,0,6}],
+{a,1,4},{b,-2,2},{c,0,3},{d,-2,2}
+]
+
+ g[t_] := Exp[-2 I t ] + 1/2 Exp[5 I t] + 1/5 Exp[19 I t]
+Manipulate[
+ ParametricPlot[{Re[g[t]], Im[g[t]]}, {t, 0, x}], {x, 0.1, 2 Pi}
+ ]
+ 
+ ParametricPlot[{1 - Cos[t], t - Sin[t]}, {t, 0, 20}]
+ 
+ Manipulate[
+ Graphics[{
+   {Blue, 
+    Polygon[{{0 + a, 0.2}, {2 + a, 0.2}, {2 + a, 1.2}, {0, 1.2}}]},
+   {Polygon[{{.25 + a, 1.2}, {1.5 + a, 1.2}, {1.25 + a, 
+       2.2}, {0.5 + a, 2.2}}]},
+   {Red, Polygon[{{0.35 + a, 1.3}, {.8 + a, 1.3}, {0.8 + a, 
+       2.1}, {.55 + a, 2.1}}]},
+   {Red, Polygon[{{0.9 + a, 1.3}, {1.4 + a, 1.3}, {1.2 + a, 
+       2.1}, {.9 + a, 2.1}}]},
+   {Red, Disk[{0.5 + a, 0.2}, .2]},
+   {Red, Disk[{1.5 + a, 0.2}, .2]}
+   }, ImageSize -> Tiny], {a, 0, 10}
+ ]
