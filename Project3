@@ -1,0 +1,26 @@
+SetDirectory[NotebookDirectory[]]
+data = Import["SN_d_tot_V2.0.csv"];
+data = Import["SN_d_tot_V2.0.csv", "Table", "FieldSeparators" -> ";"]
+Length[data]
+test = Part[data, {1, 2, 3, 4, -2, -1}]
+test2 = test /. {y_Integer, m_, d_, _Real, sn_Integer, __} :>  
+   {DateList[{y, m, d}], sn}
+   test3 = test2 /. {lis : {__}, sn_ /; sn == -1} :> {lis, Missing[]} 
+   TimeSeries[test3]
+   data2 = data /. {y_Integer, m_, d_, _Real, sn_Integer, __} :>  
+   {DateList[{y, m, d}], sn}
+data3 = data2 /. {lis : {__}, sn_ /; sn == -1} :> {lis, Missing[]} 
+tsData = TimeSeries[data3]
+DateListPlot[tsData, AspectRatio -> 1/4, Filling -> Bottom]
+tsw = TimeSeriesWindow[
+  tsData, {AbsoluteTime[{1849, 1, 1}], AbsoluteTime[]}]
+  gfData = GaussianFilter[tsw, 24 30];
+DateListPlot[gfData, AspectRatio -> 1/4]
+ peaks = FindPeaks[gfData, 365]
+DateListPlot[{gfData, peaks}, AspectRatio -> 1/4, 
+ Joined -> {True, False}, 
+ PlotStyle -> {Automatic, {Red, PointSize[Medium]}}]
+dates = Map[DateList, peaks["Times"]] 
+datesNew = Select[dates, #[[1]] > 1800 &][[All, 1]]
+dateyeardiff = Differences[datesNew]
+yearsave = Total[dateyeardiff]/16.0
