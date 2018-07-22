@@ -1,0 +1,7 @@
+Table[Cases[Range[500],(n_?PrimeQ)/;n>1+i&&n<10+i],{i,0,490,10}
+
+Cases[Range[1000], (n_?PalindromeQ) /; n < 1000]
+
+list = Range[0, 1000000]
+Count[list, n_?PalindromeQ]
+
