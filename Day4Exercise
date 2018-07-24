@@ -1,0 +1,10 @@
+TowerOfHanoi[1] = 1;
+TowerOfHanoi[2] = 3;
+TowerOfHanoi[n_] := 2*TowerOfHanoi[n - 1] + 1
+Table[TowerOfHanoi[i], {i, 1, 5}]
+
+Outer[StringJoin, 
+  Apply[Sequence, 
+   Table[{"A", "R", "N", "D", "C", "E", "Q", "G", "H", "I", "L", "K", 
+     "M", "F", "P", "O", "U", "S", "T", "W", "Y", 
+     "V"}, {2}]]] // Flatten
